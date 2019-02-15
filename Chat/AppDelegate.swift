@@ -8,58 +8,36 @@
 
 import UIKit
 
-// * Параметр для включения/отключения логов
-var showLogs = true
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
     var window: UIWindow?
-    var state: UIApplication.State = .inactive
+    
+    var oldState: UIApplication.State = .inactive
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        if showLogs {
-            print("Application moved from \(string(from: state)) to \(string(from: application.applicationState)): \(#function)")
-            state = application.applicationState
-        }
-       
+        Logger.log(strigfrom(oldState: &oldState, newState: application.applicationState, functionName: #function))
         return true
     }
-
+    
     func applicationWillResignActive(_ application: UIApplication) {
-        if showLogs {
-            print("Application moved from \(string(from: state)) to \(string(from: application.applicationState)): \(#function)")
-            state = application.applicationState
-        }
-        
+        Logger.log(strigfrom(oldState: &oldState, newState: application.applicationState, functionName: #function))
     }
-
+    
     func applicationDidEnterBackground(_ application: UIApplication) {
-        if showLogs {
-            print("Application moved from \(string(from: state)) to \(string(from: application.applicationState)): \(#function)")
-            state = application.applicationState
-        }
+        Logger.log(strigfrom(oldState: &oldState, newState: application.applicationState, functionName: #function))
     }
-
+    
     func applicationWillEnterForeground(_ application: UIApplication) {
-        if showLogs {
-            print("Application moved from \(string(from: state)) to \(string(from: application.applicationState)): \(#function)")
-            state = application.applicationState
-        }
+        Logger.log(strigfrom(oldState: &oldState, newState: application.applicationState, functionName: #function))
     }
-
+    
     func applicationDidBecomeActive(_ application: UIApplication) {
-        if showLogs {
-            print("Application moved from \(string(from: state)) to \(string(from: application.applicationState)): \(#function)")
-            state = application.applicationState
-        }
+        Logger.log(strigfrom(oldState: &oldState, newState: application.applicationState, functionName: #function))
     }
-
+    
     func applicationWillTerminate(_ application: UIApplication) {
-        if showLogs {
-            print("Application moved from \(string(from: state)) to \(string(from: application.applicationState)): \(#function)")
-            state = application.applicationState
-        }
+        Logger.log(strigfrom(oldState: &oldState, newState: application.applicationState, functionName: #function))
     }
     
     func string(from state: UIApplication.State) -> String {
@@ -71,6 +49,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         case .background:
             return "Background"
         }
+    }
+    
+    func strigfrom(oldState: inout UIApplication.State, newState: UIApplication.State,functionName: String) -> String {
+        let result = "Application moved from \(string(from: oldState)) to \(string(from: newState)): \(functionName)"
+        oldState = newState
+        return result
     }
 }
 
