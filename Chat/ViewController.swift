@@ -16,6 +16,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var editButton: UIButton!
     
+    @IBAction func cancelAction(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
+    }
     @IBAction func photoAction(_ sender: UIButton) {
         showAlert()
     }
