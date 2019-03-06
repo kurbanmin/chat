@@ -10,8 +10,11 @@
 		B003F2942223A34200E0F03B /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B003F2932223A34200E0F03B /* ConversationViewController.swift */; };
 		B003F2962223A79C00E0F03B /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B003F2952223A79C00E0F03B /* MessageCell.swift */; };
 		B003F2982223AB1400E0F03B /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = B003F2972223AB1400E0F03B /* Message.swift */; };
+		B005A29D222FF8C40086EFA0 /* ThemesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B005A295222FF3F60086EFA0 /* ThemesViewController.swift */; };
 		B0093B182217062100ECEC01 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0093B172217062100ECEC01 /* Logger.swift */; };
 		B01858CB22231621001A6711 /* ConversationCellConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01858CA22231621001A6711 /* ConversationCellConfiguration.swift */; };
+		B02767E4222D2EA1004D8648 /* Themes.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B02767E3222D2EA1004D8648 /* Themes.storyboard */; };
+		B02767ED222DB8C6004D8648 /* Themes.m in Sources */ = {isa = PBXBuildFile; fileRef = B02767EC222DB8C6004D8648 /* Themes.m */; };
 		B02C7C312223F16F00CED582 /* MessageCellConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02C7C302223F16F00CED582 /* MessageCellConfiguration.swift */; };
 		B0336C4B220F227500DB7B29 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0336C4A220F227500DB7B29 /* AppDelegate.swift */; };
 		B0336C4D220F227500DB7B29 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0336C4C220F227500DB7B29 /* ViewController.swift */; };
@@ -30,8 +33,16 @@
 		B003F2932223A34200E0F03B /* ConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
 		B003F2952223A79C00E0F03B /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		B003F2972223AB1400E0F03B /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		B005A295222FF3F60086EFA0 /* ThemesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesViewController.swift; sourceTree = "<group>"; };
 		B0093B172217062100ECEC01 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		B01858CA22231621001A6711 /* ConversationCellConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationCellConfiguration.swift; sourceTree = "<group>"; };
+		B02767E3222D2EA1004D8648 /* Themes.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Themes.storyboard; sourceTree = "<group>"; };
+		B02767E5222D2F35004D8648 /* Chat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Chat-Bridging-Header.h"; sourceTree = "<group>"; };
+		B02767E6222D2F36004D8648 /* ThemesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThemesViewController.h; sourceTree = "<group>"; };
+		B02767E7222D2F36004D8648 /* ThemesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThemesViewController.m; sourceTree = "<group>"; };
+		B02767EB222DB8C6004D8648 /* Themes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Themes.h; sourceTree = "<group>"; };
+		B02767EC222DB8C6004D8648 /* Themes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Themes.m; sourceTree = "<group>"; };
+		B02767EE222DC29E004D8648 /* ThemesViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThemesViewControllerDelegate.h; sourceTree = "<group>"; };
 		B02C7C302223F16F00CED582 /* MessageCellConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellConfiguration.swift; sourceTree = "<group>"; };
 		B0336C47220F227500DB7B29 /* Chat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0336C4A220F227500DB7B29 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -59,6 +70,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B005A29A222FF4C30086EFA0 /* Themes */ = {
+			isa = PBXGroup;
+			children = (
+				B005A29C222FF4EA0086EFA0 /* Swift */,
+				B005A29B222FF4CD0086EFA0 /* Objective-c */,
+				B02767E3222D2EA1004D8648 /* Themes.storyboard */,
+			);
+			path = Themes;
+			sourceTree = "<group>";
+		};
+		B005A29B222FF4CD0086EFA0 /* Objective-c */ = {
+			isa = PBXGroup;
+			children = (
+				B02767EB222DB8C6004D8648 /* Themes.h */,
+				B02767EC222DB8C6004D8648 /* Themes.m */,
+				B02767E6222D2F36004D8648 /* ThemesViewController.h */,
+				B02767E7222D2F36004D8648 /* ThemesViewController.m */,
+				B02767EE222DC29E004D8648 /* ThemesViewControllerDelegate.h */,
+			);
+			path = "Objective-c";
+			sourceTree = "<group>";
+		};
+		B005A29C222FF4EA0086EFA0 /* Swift */ = {
+			isa = PBXGroup;
+			children = (
+				B005A295222FF3F60086EFA0 /* ThemesViewController.swift */,
+			);
+			path = Swift;
+			sourceTree = "<group>";
+		};
 		B02C7C322223FAC300CED582 /* ConversationList */ = {
 			isa = PBXGroup;
 			children = (
@@ -107,8 +148,10 @@
 				B0336C4C220F227500DB7B29 /* ViewController.swift */,
 				B0093B172217062100ECEC01 /* Logger.swift */,
 				B0336C4E220F227500DB7B29 /* Main.storyboard */,
+				B02767E5222D2F35004D8648 /* Chat-Bridging-Header.h */,
 				B02C7C322223FAC300CED582 /* ConversationList */,
 				B02C7C332223FB3B00CED582 /* Conversation */,
+				B005A29A222FF4C30086EFA0 /* Themes */,
 				B0336C51220F227700DB7B29 /* Assets.xcassets */,
 				B0336C53220F227700DB7B29 /* LaunchScreen.storyboard */,
 				B0336C56220F227700DB7B29 /* Info.plist */,
@@ -148,6 +191,7 @@
 				TargetAttributes = {
 					B0336C46220F227500DB7B29 = {
 						CreatedOnToolsVersion = 10.0;
+						LastSwiftMigration = 1010;
 					};
 				};
 			};
@@ -176,6 +220,7 @@
 			files = (
 				B09CD94F2220654600CA4B18 /* ConversationCell.xib in Resources */,
 				B0336C55220F227700DB7B29 /* LaunchScreen.storyboard in Resources */,
+				B02767E4222D2EA1004D8648 /* Themes.storyboard in Resources */,
 				B09CD9512220692F00CA4B18 /* Conversation.storyboard in Resources */,
 				B0336C52220F227700DB7B29 /* Assets.xcassets in Resources */,
 				B0336C50220F227500DB7B29 /* Main.storyboard in Resources */,
@@ -192,8 +237,10 @@
 				B0336C4D220F227500DB7B29 /* ViewController.swift in Sources */,
 				B09CD953222073FE00CA4B18 /* ConversationSection.swift in Sources */,
 				B003F2942223A34200E0F03B /* ConversationViewController.swift in Sources */,
+				B005A29D222FF8C40086EFA0 /* ThemesViewController.swift in Sources */,
 				B003F2962223A79C00E0F03B /* MessageCell.swift in Sources */,
 				B09CD95522207AF400CA4B18 /* Conversation.swift in Sources */,
+				B02767ED222DB8C6004D8648 /* Themes.m in Sources */,
 				B09CD94B2220650000CA4B18 /* ConversationsListViewController.swift in Sources */,
 				B02C7C312223F16F00CED582 /* MessageCellConfiguration.swift in Sources */,
 				B003F2982223AB1400E0F03B /* Message.swift in Sources */,
@@ -346,6 +393,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QBSWT4S4BJ;
 				INFOPLIST_FILE = Chat/Info.plist;
@@ -356,6 +405,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.kurban.Chat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Chat/Chat-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -365,6 +416,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QBSWT4S4BJ;
 				INFOPLIST_FILE = Chat/Info.plist;
@@ -375,6 +428,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.kurban.Chat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Chat/Chat-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

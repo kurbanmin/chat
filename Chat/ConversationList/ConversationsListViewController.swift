@@ -31,6 +31,13 @@ class ConversationsListViewController: UIViewController {
         ])
     ]
     
+    let closure: (UIColor) -> () = { selectedTheme in
+        Logger.logThemeChanging(selectedTheme: selectedTheme)
+        UINavigationBar.appearance().barTintColor = selectedTheme
+        let colorData = NSKeyedArchiver.archivedData(withRootObject: selectedTheme)
+        UserDefaults.standard.set(colorData, forKey: "Theme")
+    }
+    
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -51,6 +58,36 @@ class ConversationsListViewController: UIViewController {
         if let vc = segue.destination as? ConversationViewController, let indexPath = tableView.indexPathForSelectedRow {
             vc.conversation = conversationsSections[indexPath.section].conversations[indexPath.row]
         }
+        
+        // Swift
+        if segue.identifier == "ShowThemesViewController" {
+            if segue.identifier == "ShowThemesViewController" {
+                if let nc = segue.destination as? UINavigationController, let vc = nc.topViewController as? ThemesViewController {
+                    
+                    let model = Themes()
+                    model.theme1 = .blue
+                    model.theme2 = .black
+                    model.theme3 = .purple
+                    
+                    vc.model = model
+                    vc.closure = closure
+                }
+            }
+        }
+        
+        // Objective-c
+//        if segue.identifier == "ShowThemesViewController" {
+//            if let nc = segue.destination as? UINavigationController, let vc = nc.topViewController as? ThemesViewController {
+//
+//                let model = Themes()
+//                model.theme1 = .blue
+//                model.theme2 = .black
+//                model.theme3 = .purple
+//
+//                vc.model = model
+//                vc.delegate = self
+//            }
+//        }
     }
 }
 
@@ -87,3 +124,15 @@ extension ConversationsListViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
+
+//extension ConversationsListViewController: ThemesViewControllerDelegate {
+//    func themesViewController(_ controller: ThemesViewController, didSelectTheme selectedTheme: UIColor) {
+//        Logger.logThemeChanging(selectedTheme: selectedTheme)
+//        UINavigationBar.appearance().barTintColor = selectedTheme
+//
+//        let colorData = NSKeyedArchiver.archivedData(withRootObject: selectedTheme)
+//        UserDefaults.standard.set(colorData, forKey: "Theme")
+//    }
+//}
+
+

@@ -17,6 +17,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         Logger.log(strigfrom(oldState: &oldState, newState: application.applicationState, functionName: #function))
+        
+        if let colorData = UserDefaults.standard.data(forKey: "Theme"), let color = NSKeyedUnarchiver.unarchiveObject(with: colorData) as? UIColor {
+            UINavigationBar.appearance().barTintColor = color
+        }
+        
         return true
     }
     

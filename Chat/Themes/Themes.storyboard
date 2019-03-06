@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Themes View Controller-->
+        <scene sceneID="A8g-wb-sxO">
+            <objects>
+                <viewController id="hyg-Zq-2Mt" customClass="ThemesViewController" customModule="Chat" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="GxU-cI-J0x">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" alpha="0.69999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fP1-ZA-fLb">
+                                <rect key="frame" x="112.5" y="410.5" width="150" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Тема 3"/>
+                                <connections>
+                                    <action selector="theme3Action:" destination="hyg-Zq-2Mt" eventType="touchUpInside" id="n55-Uc-Q36"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" alpha="0.69999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gnG-xI-Y9x">
+                                <rect key="frame" x="112.5" y="290.5" width="150" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="4BZ-BQ-AUe"/>
+                                </constraints>
+                                <state key="normal" title="Тема 1"/>
+                                <connections>
+                                    <action selector="theme1Action:" destination="hyg-Zq-2Mt" eventType="touchUpInside" id="lBQ-LJ-N9z"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" alpha="0.75" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NsU-gg-anm">
+                                <rect key="frame" x="112.5" y="350.5" width="150" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Тема 2"/>
+                                <connections>
+                                    <action selector="theme2Action:" destination="hyg-Zq-2Mt" eventType="touchUpInside" id="VnY-8h-CqD"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.95342571462827563" blue="0.26193351479323412" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="NsU-gg-anm" firstAttribute="centerX" secondItem="HkB-ZY-s6Z" secondAttribute="centerX" id="B9y-Ne-AyP"/>
+                            <constraint firstItem="NsU-gg-anm" firstAttribute="top" secondItem="gnG-xI-Y9x" secondAttribute="bottom" constant="30" id="Cip-yh-PiT"/>
+                            <constraint firstItem="NsU-gg-anm" firstAttribute="width" secondItem="gnG-xI-Y9x" secondAttribute="width" id="DLQ-ej-YPV"/>
+                            <constraint firstItem="NsU-gg-anm" firstAttribute="centerY" secondItem="HkB-ZY-s6Z" secondAttribute="centerY" id="ZJv-28-h4M"/>
+                            <constraint firstItem="gnG-xI-Y9x" firstAttribute="centerX" secondItem="HkB-ZY-s6Z" secondAttribute="centerX" id="dqO-MW-XaI"/>
+                            <constraint firstItem="fP1-ZA-fLb" firstAttribute="width" secondItem="gnG-xI-Y9x" secondAttribute="width" id="eQQ-3G-g67"/>
+                            <constraint firstItem="fP1-ZA-fLb" firstAttribute="centerX" secondItem="HkB-ZY-s6Z" secondAttribute="centerX" id="g12-MR-nHl"/>
+                            <constraint firstItem="fP1-ZA-fLb" firstAttribute="top" secondItem="NsU-gg-anm" secondAttribute="bottom" constant="30" id="wz6-vP-hRY"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="HkB-ZY-s6Z"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="91d-jN-9s7">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Mh2-PW-etp">
+                            <connections>
+                                <action selector="cancelAction:" destination="hyg-Zq-2Mt" id="a2J-m4-cD7"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kTN-kq-yFE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="728.79999999999995" y="120.98950524737631"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Rxc-3n-chH">
+            <objects>
+                <navigationController storyboardIdentifier="ThemesViewController" automaticallyAdjustsScrollViewInsets="NO" id="Nqj-5c-gJ4" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="aNP-JW-4Vn">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="hyg-Zq-2Mt" kind="relationship" relationship="rootViewController" id="tcf-OG-e2J"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nae-NG-FGy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-111" y="121"/>
+        </scene>
+    </scenes>
+</document>
