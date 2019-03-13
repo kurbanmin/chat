@@ -32,10 +32,15 @@ class ConversationsListViewController: UIViewController {
     ]
     
     let closure: (UIColor) -> () = { selectedTheme in
-        Logger.logThemeChanging(selectedTheme: selectedTheme)
-        UINavigationBar.appearance().barTintColor = selectedTheme
-        let colorData = NSKeyedArchiver.archivedData(withRootObject: selectedTheme)
-        UserDefaults.standard.set(colorData, forKey: "Theme")
+        DispatchQueue.global().async {
+            Logger.logThemeChanging(selectedTheme: selectedTheme)
+            let colorData = NSKeyedArchiver.archivedData(withRootObject: selectedTheme)
+            UserDefaults.standard.set(colorData, forKey: "Theme")
+            
+            DispatchQueue.main.async {
+                UINavigationBar.appearance().barTintColor = selectedTheme
+            }
+        }
     }
     
     @IBOutlet weak var tableView: UITableView!
