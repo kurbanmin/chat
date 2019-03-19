@@ -13,4 +13,3 @@ struct Message {
     var incoming = false
     var date: Date
 }
-

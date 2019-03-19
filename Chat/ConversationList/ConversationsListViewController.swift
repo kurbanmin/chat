@@ -9,27 +9,7 @@
 import UIKit
 
 class ConversationsListViewController: UIViewController {
-    let conversationsSections = [
-        ConversationSection(title: "Online", conversations: [
-            Conversation(name: "Иван Иванов", messages: [Message(text: "Привет как дела?", incoming: true, date: Date().addingTimeInterval(-500000000)), Message(text: "Привет, хорошо", incoming: false, date: Date().addingTimeInterval(-200000000))], online: true, hasUnreadMessages: false),
-            Conversation(name: "Иван Иванов", messages: [Message(text: "Привет как дела?", incoming: true, date: Date().addingTimeInterval(-500000000)), Message(text: "Привет, хорошо", incoming: false, date: Date().addingTimeInterval(-200000000))], online: true, hasUnreadMessages: false),
-            Conversation(name: "Иван Иванов", messages: [Message(text: "Привет как дела?", incoming: true, date: Date().addingTimeInterval(-500)), Message(text: "Привет, хорошо", incoming: false, date: Date())], online: true, hasUnreadMessages: false),
-            
-            Conversation(name: "Иван Иванов", messages: [Message(text: "Привет как дела?", incoming: true, date: Date().addingTimeInterval(-500000000)), Message(text: "Привет, хорошо", incoming: false, date: Date().addingTimeInterval(-200000000))], online: true, hasUnreadMessages: false),
-            Conversation(name: "Иван Иванов", messages: [Message(text: "Привет как дела?", incoming: true, date: Date().addingTimeInterval(-500)), Message(text: "Привет, хорошо", incoming: false, date: Date())], online: true, hasUnreadMessages: true),
-            Conversation(name: "Иван Иванов", messages: [Message(text: "Привет как дела?", incoming: true, date: Date().addingTimeInterval(-500000000)), Message(text: "Привет, хорошо", incoming: false, date: Date().addingTimeInterval(-200000000))], online: true, hasUnreadMessages: false),
-            Conversation(name: "Иван Иванов", messages: [Message(text: "Привет как дела?", incoming: true, date: Date().addingTimeInterval(-500000000)), Message(text: "Привет, хорошо", incoming: false, date: Date().addingTimeInterval(-200000000))], online: true, hasUnreadMessages: false),
-            Conversation(name: "Иван Иванов", messages: [Message(text: "Привет как дела?", incoming: true, date: Date().addingTimeInterval(-500)), Message(text: "Привет, хорошо", incoming: false, date: Date())], online: true, hasUnreadMessages: false)
-        ]),
-        
-        ConversationSection(title: "History", conversations: [
-            Conversation(name: "Иван Иванов", messages: [Message(text: "Привет как дела?", incoming: true, date: Date().addingTimeInterval(-500)), Message(text: "Привет, хорошо", incoming: false, date: Date())], online: false, hasUnreadMessages: false),
-            Conversation(name: "Иван Иванов", messages: [Message(text: "Привет как дела?", incoming: true, date: Date().addingTimeInterval(-500)), Message(text: "Привет, хорошо", incoming: false, date: Date())], online: false, hasUnreadMessages: false),
-            Conversation(name: "Иван Иванов", messages: [Message(text: "Привет как дела?", incoming: true, date: Date().addingTimeInterval(-500)), Message(text: "Привет, хорошо", incoming: false, date: Date())], online: false, hasUnreadMessages: false),
-            Conversation(name: "Иван Иванов", messages: [Message(text: "Привет как дела?", incoming: true, date: Date().addingTimeInterval(-500)), Message(text: "Привет, хорошо", incoming: false, date: Date())], online: false, hasUnreadMessages: false),
-            Conversation(name: "Иван Иванов", messages: [Message(text: "Привет как дела?", incoming: true, date: Date().addingTimeInterval(-500)), Message(text: "Привет, хорошо", incoming: false, date: Date())], online: false, hasUnreadMessages: false)
-        ])
-    ]
+    var conversationsSections: [ConversationSection] = []
     
     let closure: (UIColor) -> () = { selectedTheme in
         DispatchQueue.global().async {
@@ -55,6 +35,12 @@ class ConversationsListViewController: UIViewController {
         tableView.delegate = self
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableView.automaticDimension
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        CommunicationManager.shared.delegate = self
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -127,6 +113,17 @@ extension ConversationsListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "ShowConversation", sender: nil)
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+extension ConversationsListViewController: CommunicationManagerDelegate {
+    func setup(onlineConversations: [Conversation], offlineConversations: [Conversation]) {
+        let onlineSection = ConversationSection(title: "Online", conversations: onlineConversations)
+        let offlineSection = ConversationSection(title: "History", conversations: offlineConversations)
+        
+        conversationsSections = [onlineSection, offlineSection]
+        
+        DispatchQueue.main.async { [weak self] in            self?.tableView.reloadData()
+        }
     }
 }
 

@@ -10,6 +10,10 @@ import UIKit
 
 class ConversationViewController: UIViewController {
     
+    @IBOutlet var bottomConstraint: NSLayoutConstraint!
+    
+    @IBOutlet var sendMessageButton: UIButton!
+    @IBOutlet var messageTextField: UITextField!
     @IBOutlet weak var tableView: UITableView!
     
     var conversation: Conversation!
@@ -19,6 +23,47 @@ class ConversationViewController: UIViewController {
         
         title = conversation.name
         tableView.dataSource = self
+        
+        sendMessageButton.isEnabled = conversation.online
+        conversation.hasUnreadMessages = false
+       
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        CommunicationManager.shared.delegate = self
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func keyboardWillShow(notification: Notification) {
+        let info = notification.userInfo!
+        
+        let keyboardFrame: CGRect = (info[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        self.bottomConstraint.constant = keyboardFrame.size.height
+        UIView.animate(withDuration: 0.1, animations: { () -> Void in
+            self.view.layoutIfNeeded()
+        })
+    }
+    
+    @objc func keyboardWillHide(notification: Notification) {
+        self.bottomConstraint.constant = 0
+        UIView.animate(withDuration: 0.1, animations: { () -> Void in
+            self.view.layoutIfNeeded()
+        })
+    }
+    
+    @IBAction func sendMessage(_ sender: UIButton) {
+        if let text = messageTextField.text, !text.isEmpty {
+            CommunicationManager.shared.sendMessage(text: text, to: conversation.userID)
+            messageTextField.text = ""
+            tableView.reloadData()
+        }
+        
+        messageTextField.resignFirstResponder()
     }
 }
 
@@ -35,5 +80,23 @@ extension ConversationViewController: UITableViewDataSource {
         cell.messageText = message.text
         
         return cell
+    }
+}
+
+extension ConversationViewController: CommunicationManagerDelegate {
+    func didFoundUser(userID: String) {
+        if conversation.userID == userID {
+            DispatchQueue.main.async { [weak self] in
+                self?.sendMessageButton.isEnabled = true
+            }
+        }
+    }
+    
+    func didLostUser(userID: String) {
+        if conversation.userID == userID {
+            DispatchQueue.main.async { [weak self] in
+                self?.sendMessageButton.isEnabled = false
+            }
+        }
     }
 }

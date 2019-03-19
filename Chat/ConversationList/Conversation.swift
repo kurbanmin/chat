@@ -8,10 +8,18 @@
 
 import Foundation
 
-struct Conversation {
-    let name: String
-    let messages: [Message]
-    let online: Bool
-    let hasUnreadMessages: Bool
+class Conversation {
+    var userID: String
+    var name: String
+    var messages: [Message]
+    var online: Bool
+    var hasUnreadMessages: Bool
+    
+    init(userID: String, name: String, messages: [Message], online: Bool, hasUnreadMessages: Bool) {
+        self.userID = userID
+        self.name = name
+        self.messages = messages
+        self.online = online
+        self.hasUnreadMessages = hasUnreadMessages
+    }
 }
-

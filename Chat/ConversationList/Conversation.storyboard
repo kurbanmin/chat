@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fS4-VI-mpC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fS4-VI-mpC">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -78,7 +78,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="VkU-fj-2zN">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="553"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="InputMessageCell" id="am9-G8-vfF" customClass="MessageCell" customModule="Chat" customModuleProvider="target">
@@ -133,17 +133,50 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ghz-Gl-jvC">
+                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pJj-pg-NUI">
+                                        <rect key="frame" x="8" y="10" width="272" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="255" horizontalCompressionResistancePriority="755" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Wb-m5-YJ7">
+                                        <rect key="frame" x="290" y="10" width="77" height="30"/>
+                                        <state key="normal" title="Отправить"/>
+                                        <connections>
+                                            <action selector="sendMessage:" destination="qvE-Dy-Wua" eventType="touchUpInside" id="2bk-bg-zkO"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="pJj-pg-NUI" firstAttribute="leading" secondItem="Ghz-Gl-jvC" secondAttribute="leading" constant="8" id="7CF-Wi-ghW"/>
+                                    <constraint firstAttribute="trailing" secondItem="9Wb-m5-YJ7" secondAttribute="trailing" constant="8" id="AKb-Yl-AQD"/>
+                                    <constraint firstAttribute="height" constant="50" id="M4t-DB-byg"/>
+                                    <constraint firstItem="pJj-pg-NUI" firstAttribute="centerY" secondItem="Ghz-Gl-jvC" secondAttribute="centerY" id="bab-ek-QNo"/>
+                                    <constraint firstItem="9Wb-m5-YJ7" firstAttribute="leading" secondItem="pJj-pg-NUI" secondAttribute="trailing" constant="10" id="hDn-Dv-s5U"/>
+                                    <constraint firstItem="9Wb-m5-YJ7" firstAttribute="centerY" secondItem="Ghz-Gl-jvC" secondAttribute="centerY" id="sII-JJ-a7J"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="Ghz-Gl-jvC" firstAttribute="top" secondItem="VkU-fj-2zN" secondAttribute="bottom" id="37D-Bz-9kU"/>
                             <constraint firstItem="VkU-fj-2zN" firstAttribute="leading" secondItem="dLW-mT-CG0" secondAttribute="leading" id="HwG-YI-Jpl"/>
                             <constraint firstItem="VkU-fj-2zN" firstAttribute="trailing" secondItem="dLW-mT-CG0" secondAttribute="trailing" id="IHb-5c-ss9"/>
+                            <constraint firstItem="Ghz-Gl-jvC" firstAttribute="leading" secondItem="dLW-mT-CG0" secondAttribute="leading" id="XpO-Ww-A2W"/>
+                            <constraint firstItem="dLW-mT-CG0" firstAttribute="trailing" secondItem="Ghz-Gl-jvC" secondAttribute="trailing" id="YKj-dw-lKJ"/>
                             <constraint firstItem="VkU-fj-2zN" firstAttribute="top" secondItem="dLW-mT-CG0" secondAttribute="top" id="cfw-CI-MuA"/>
-                            <constraint firstItem="VkU-fj-2zN" firstAttribute="bottom" secondItem="dLW-mT-CG0" secondAttribute="bottom" id="hlF-xg-e9A"/>
+                            <constraint firstItem="dLW-mT-CG0" firstAttribute="bottom" secondItem="Ghz-Gl-jvC" secondAttribute="bottom" id="fyh-ll-d7Z"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dLW-mT-CG0"/>
                     </view>
                     <connections>
+                        <outlet property="bottomConstraint" destination="fyh-ll-d7Z" id="Kmq-GY-0XE"/>
+                        <outlet property="messageTextField" destination="pJj-pg-NUI" id="lhN-X1-siE"/>
+                        <outlet property="sendMessageButton" destination="9Wb-m5-YJ7" id="BwF-17-GMt"/>
                         <outlet property="tableView" destination="VkU-fj-2zN" id="rMw-yO-cfs"/>
                     </connections>
                 </viewController>
