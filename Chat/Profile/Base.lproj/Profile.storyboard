@@ -65,22 +65,13 @@
                                     <action selector="editAction:" destination="rZV-ga-97y" eventType="touchUpInside" id="ell-fY-yHK"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="heY-Au-k6T">
-                                <rect key="frame" x="195" y="597" width="165" height="50"/>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dr0-m9-ish">
+                                <rect key="frame" x="15" y="597" width="345" height="50"/>
                                 <color key="backgroundColor" red="0.91764705879999997" green="0.64381505169999997" blue="0.1647058824" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Operation"/>
+                                <state key="normal" title="Сохранить"/>
                                 <connections>
-                                    <action selector="operationAction:" destination="rZV-ga-97y" eventType="touchUpInside" id="02n-FZ-8NU"/>
-                                </connections>
-                            </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dr0-m9-ish">
-                                <rect key="frame" x="15" y="597" width="165" height="50"/>
-                                <color key="backgroundColor" red="0.91764705879999997" green="0.64381505169999997" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="GCD"/>
-                                <connections>
-                                    <action selector="gcdAction:" destination="rZV-ga-97y" eventType="touchUpInside" id="kce-bS-dPE"/>
+                                    <action selector="saveAction:" destination="rZV-ga-97y" eventType="touchUpInside" id="vsD-KG-VMA"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aKy-i2-kW2">
@@ -113,15 +104,13 @@
                         <constraints>
                             <constraint firstItem="Dr0-m9-ish" firstAttribute="leading" secondItem="DbF-ve-X3y" secondAttribute="leading" id="1DC-dr-a7T"/>
                             <constraint firstItem="Dr0-m9-ish" firstAttribute="top" secondItem="DbF-ve-X3y" secondAttribute="top" id="3lR-Gh-wab"/>
-                            <constraint firstItem="heY-Au-k6T" firstAttribute="width" secondItem="Dr0-m9-ish" secondAttribute="width" id="4VS-BO-NlY"/>
                             <constraint firstItem="aKy-i2-kW2" firstAttribute="top" secondItem="5KP-kO-tRi" secondAttribute="bottom" constant="8" id="5ln-nc-kHG"/>
                             <constraint firstItem="DbF-ve-X3y" firstAttribute="top" secondItem="ge4-10-fcg" secondAttribute="bottom" constant="8" id="6gQ-gb-SsV"/>
                             <constraint firstItem="Dr0-m9-ish" firstAttribute="bottom" secondItem="DbF-ve-X3y" secondAttribute="bottom" id="7Uz-3r-u3S"/>
                             <constraint firstItem="p3v-qA-zpg" firstAttribute="bottom" secondItem="f8E-ap-9T7" secondAttribute="bottom" id="8Aa-0R-vG1"/>
                             <constraint firstItem="f8E-ap-9T7" firstAttribute="leading" secondItem="07D-Ic-yLt" secondAttribute="leading" constant="15" id="9TZ-Tn-reA"/>
-                            <constraint firstItem="heY-Au-k6T" firstAttribute="top" secondItem="DbF-ve-X3y" secondAttribute="top" id="BrO-TG-BUP"/>
-                            <constraint firstItem="heY-Au-k6T" firstAttribute="trailing" secondItem="DbF-ve-X3y" secondAttribute="trailing" id="ONO-hC-OkW"/>
                             <constraint firstItem="DbF-ve-X3y" firstAttribute="trailing" secondItem="ge4-10-fcg" secondAttribute="trailing" id="Ouv-ta-Qyp"/>
+                            <constraint firstItem="Dr0-m9-ish" firstAttribute="trailing" secondItem="DbF-ve-X3y" secondAttribute="trailing" id="Tbd-1W-eGf"/>
                             <constraint firstItem="DbF-ve-X3y" firstAttribute="leading" secondItem="ge4-10-fcg" secondAttribute="leading" id="YF2-XB-Qgt"/>
                             <constraint firstItem="p3v-qA-zpg" firstAttribute="trailing" secondItem="f8E-ap-9T7" secondAttribute="trailing" id="a9H-ju-NHu"/>
                             <constraint firstItem="f8E-ap-9T7" firstAttribute="top" secondItem="07D-Ic-yLt" secondAttribute="top" constant="15" id="bve-LP-giC"/>
@@ -129,11 +118,9 @@
                             <constraint firstItem="ge4-10-fcg" firstAttribute="trailing" secondItem="5KP-kO-tRi" secondAttribute="trailing" id="gFh-DR-fur"/>
                             <constraint firstItem="6wF-mz-aqv" firstAttribute="centerY" secondItem="07D-Ic-yLt" secondAttribute="centerY" id="h3I-1H-rcf"/>
                             <constraint firstItem="aKy-i2-kW2" firstAttribute="trailing" secondItem="5KP-kO-tRi" secondAttribute="trailing" id="h7R-pb-31I"/>
-                            <constraint firstItem="heY-Au-k6T" firstAttribute="bottom" secondItem="DbF-ve-X3y" secondAttribute="bottom" id="iQy-ba-B5z"/>
                             <constraint firstItem="5KP-kO-tRi" firstAttribute="top" secondItem="f8E-ap-9T7" secondAttribute="bottom" constant="8" id="kxt-dd-4u7"/>
                             <constraint firstItem="07D-Ic-yLt" firstAttribute="trailing" secondItem="f8E-ap-9T7" secondAttribute="trailing" constant="15" id="owI-IV-KyU"/>
                             <constraint firstItem="ge4-10-fcg" firstAttribute="top" secondItem="5KP-kO-tRi" secondAttribute="bottom" constant="8" id="p5v-8j-2i8"/>
-                            <constraint firstItem="heY-Au-k6T" firstAttribute="leading" secondItem="Dr0-m9-ish" secondAttribute="trailing" constant="15" id="qMQ-l5-kGe"/>
                             <constraint firstItem="ge4-10-fcg" firstAttribute="leading" secondItem="5KP-kO-tRi" secondAttribute="leading" id="rqb-Ng-2vX"/>
                             <constraint firstItem="aKy-i2-kW2" firstAttribute="leading" secondItem="5KP-kO-tRi" secondAttribute="leading" id="wtu-el-7a5"/>
                             <constraint firstItem="5KP-kO-tRi" firstAttribute="trailing" secondItem="f8E-ap-9T7" secondAttribute="trailing" id="x55-4A-yGv"/>
@@ -153,11 +140,10 @@
                         <outlet property="activityIndicator" destination="6wF-mz-aqv" id="2Bf-4x-Y4V"/>
                         <outlet property="descriptionTextView" destination="ge4-10-fcg" id="LRD-qC-z9c"/>
                         <outlet property="editButton" destination="DbF-ve-X3y" id="yI4-uO-vXg"/>
-                        <outlet property="gcdButton" destination="Dr0-m9-ish" id="LV0-iH-pEY"/>
                         <outlet property="nameTextField" destination="5KP-kO-tRi" id="24W-6k-c8v"/>
-                        <outlet property="operationButton" destination="heY-Au-k6T" id="5hH-bS-Lr5"/>
                         <outlet property="photoButton" destination="p3v-qA-zpg" id="ZEN-Lw-WVS"/>
                         <outlet property="profileImageView" destination="f8E-ap-9T7" id="ZQ8-51-5uU"/>
+                        <outlet property="saveButton" destination="Dr0-m9-ish" id="GY8-6P-u6i"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H8p-hi-ozo" sceneMemberID="firstResponder"/>

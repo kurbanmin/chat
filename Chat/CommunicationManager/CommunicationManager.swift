@@ -11,6 +11,8 @@ import Foundation
 class CommunicationManager: CommunicatorDelegate {
     static var shared = CommunicationManager()
     
+    var storageManager = StorageManager.shared
+    
     weak var delegate: CommunicationManagerDelegate? {
         didSet {
             updateData()
@@ -37,31 +39,28 @@ class CommunicationManager: CommunicatorDelegate {
     }
     
     func updateData() {
-        let onlineConversations = conversations.filter { $0.online }
-        let offlineConversations = conversations.filter { !$0.online }
-        
-        self.delegate?.setup(onlineConversations: onlineConversations, offlineConversations: offlineConversations)
+        storageManager.getUsers { [unowned self] (onlineUsers, offlineUsers) in
+            let onlineConversations = onlineUsers.map { Conversation(userID: $0.userID, name: $0.name, messages: [], online: $0.isOnline, hasUnreadMessages: false)  }
+            let offlineConversations = offlineUsers.map { Conversation(userID: $0.userID, name: $0.name, messages: [], online: $0.isOnline, hasUnreadMessages: false)  }
+            
+            self.delegate?.setup(onlineConversations: onlineConversations, offlineConversations: offlineConversations)
+        }
     }
     
     func didFoundUser(userID: String, userName: String) {
-        if let conversation = conversations.filter({ $0.userID == userID }).first {
-            conversation.online = true
-        } else {
-            let conversation = Conversation(userID: userID, name: userName, messages: [], online: true, hasUnreadMessages: false)
-            conversations.append(conversation)
-        }
+        storageManager.updateUser(with: userID, userName: userName, isOnline: true, completionHandler: { [unowned self] in
+            self.delegate?.didFoundUser(userID: userID)
+            self.updateData()
+        })
         
-        delegate?.didFoundUser(userID: userID)
-        updateData()
     }
     
     func didLostUser(userID: String) {
-        if let conversation = conversations.filter({ $0.userID == userID }).first {
-            conversation.online = false
-        }
+        storageManager.updateUser(with: userID, userName: nil, isOnline: false, completionHandler: { [unowned self] in
+            self.delegate?.didLostUser(userID: userID)
+            self.updateData()
+        })
         
-        delegate?.didLostUser(userID: userID)
-        updateData()
     }
     
     func failedToStartBrowsing(error: Error) {

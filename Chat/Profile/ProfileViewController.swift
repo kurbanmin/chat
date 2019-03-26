@@ -15,15 +15,12 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var photoButton: UIButton!
     @IBOutlet weak var editButton: UIButton!
-    @IBOutlet weak var operationButton: UIButton!
-    @IBOutlet weak var gcdButton: UIButton!
+    @IBOutlet var saveButton: UIButton!
+    
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
-    let gcdDataManager: DataManagerProtocol = GCDDataManager()
-    let operationDataManager: DataManagerProtocol = OperationDataManager()
-    
-    var profile = Profile()
-    var tmpProfile = Profile()
+    var storageManager: StorageManager = StorageManager.shared
+    var profile: Profile!
     
     @IBAction func cancelAction(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
@@ -37,12 +34,8 @@ class ProfileViewController: UIViewController {
         editMode(enabled: true)
     }
     
-    @IBAction func gcdAction(_ sender: UIButton) {
-        gcdSave()
-    }
-    
-    @IBAction func operationAction(_ sender: UIButton) {
-        operationSave()
+    @IBAction func saveAction(_ sender: Any) {
+        save()
     }
     
     @IBAction func textFieldDidChanged(_ sender: UITextField) {
@@ -50,17 +43,12 @@ class ProfileViewController: UIViewController {
     }
     
     func editMode(enabled: Bool) {
-        gcdButton.isHidden = !enabled
-        operationButton.isHidden = !enabled
+        saveButton.isEnabled = !enabled
+        saveButton.isHidden = !enabled
         photoButton.isEnabled = enabled
         descriptionTextView.isEditable = enabled
         nameTextField.isEnabled = enabled
         editButton.isHidden = enabled
-    }
-    
-    func enableButtons(enabled: Bool) {
-        gcdButton.isEnabled = enabled
-        operationButton.isEnabled = enabled
     }
     
     override func viewDidLoad() {
@@ -70,17 +58,14 @@ class ProfileViewController: UIViewController {
         
         activityIndicator.startAnimating()
         
-        operationDataManager.loadProfile { [weak self] (profile) in
-            if let profile = profile {
-                self?.profile = profile
-                self?.nameTextField.text = self?.profile.name
-                self?.descriptionTextView.text = self?.profile.description
-                self?.profileImageView.image = self?.profile.image
-                self?.check()
-                self?.activityIndicator.stopAnimating()
-            } else {
-                self?.activityIndicator.stopAnimating()
-            }
+        storageManager.getProfile { [weak self] (profile) in
+            self?.profile = profile
+            self?.nameTextField.text = profile?.name
+            self?.descriptionTextView.text = profile?.description
+            self?.profileImageView.image = profile?.image
+            
+            self?.check()
+            self?.activityIndicator.stopAnimating()
         }
     }
     
@@ -102,54 +87,25 @@ class ProfileViewController: UIViewController {
         editButton.setTitleColor(.black, for: .normal)
     }
     
-    func gcdSave() {
-        tmpProfile = profile
-        profile.name = nameTextField.text
-        profile.description = descriptionTextView.text
-        profile.image = profileImageView.image
-        
-        activityIndicator.startAnimating()
-        enableButtons(enabled: false)
-        
-        gcdDataManager.save(profile: profile) { [weak self] success in
-            if success {
-                self?.showSuccessAlert()
-            } else {
-                self?.showErrorAlert(gcd: true)
-                if let tmpProfile = self?.tmpProfile {
-                    self?.profile = tmpProfile
-                }
-            }
-        }
-    }
     
-    func operationSave() {
-        tmpProfile = profile
-        profile.name = nameTextField.text
-        profile.description = descriptionTextView.text
-        profile.image = profileImageView.image
+    
+    func save() {
+        self.profile.name = self.nameTextField.text
+        self.profile.description = self.descriptionTextView.text
+        self.profile.image = self.profileImageView.image
         
-        activityIndicator.startAnimating()
-        enableButtons(enabled: false)
-        
-        operationDataManager.save(profile: profile) { [weak self] success in
-            if success {
+        storageManager.save(profile: self.profile) { [weak self] in
+            DispatchQueue.main.async {
                 self?.showSuccessAlert()
-            } else {
-                self?.showErrorAlert(gcd: false)
-                if let tmpProfile = self?.tmpProfile {
-                    self?.profile = tmpProfile
-                }
             }
         }
     }
     
     func check() {
-        if profile.name == nameTextField.text && profile.description == descriptionTextView.text && profile.image?.pngData() == profileImageView.image?.pngData() {
-            enableButtons(enabled: false)
-        }
-        else {
-            enableButtons(enabled: true)
+        if self.profile.name == self.nameTextField.text && self.profile.description == self.descriptionTextView.text && self.profile.image == self.profileImageView.image {
+            self.saveButton.isEnabled = false
+        } else {
+            self.saveButton.isEnabled = true
         }
     }
     
@@ -163,7 +119,7 @@ class ProfileViewController: UIViewController {
         present(alert, animated: true)
     }
     
-    func showErrorAlert(gcd: Bool) {
+    func showErrorAlert() {
         activityIndicator.stopAnimating()
         let alert = UIAlertController(title: "Ошибка", message: "Не удалось сохранить данные", preferredStyle: .alert)
         let alertAction = UIAlertAction(title: "ok", style: .default) { (action) in
@@ -172,11 +128,7 @@ class ProfileViewController: UIViewController {
         
         let repeatAction = UIAlertAction(title: "Повторить", style: .default) { [weak self] (action) in
             self?.activityIndicator.startAnimating()
-            if gcd {
-                self?.gcdSave()
-            } else {
-                self?.operationSave()
-            }
+            self?.save()
         }
         alert.addAction(alertAction)
         alert.addAction(repeatAction)

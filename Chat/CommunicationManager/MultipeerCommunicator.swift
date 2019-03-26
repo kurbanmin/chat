@@ -20,7 +20,7 @@ class MultipeerCommunicator: NSObject, Communicator {
     var advertiser: MCNearbyServiceAdvertiser!
     
     var sessions: [MCSession] = []
-    var users: [User] = []
+    var users: [ConversationUser] = []
     
     override init() {
         super.init()
@@ -37,7 +37,6 @@ class MultipeerCommunicator: NSObject, Communicator {
     
     func sendMessage(string: String, to userID: String, completionHandler: ((Bool, Error?) -> ())?) {
         if let session = sessions.filter({ $0.connectedPeers.map({ $0.displayName }).contains(userID) }).first {
-            
             let communicationMessage = CommunicationMessage(text: string)
             
             do {
@@ -54,8 +53,8 @@ class MultipeerCommunicator: NSObject, Communicator {
 extension MultipeerCommunicator: MCNearbyServiceBrowserDelegate {
     func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) {
         if let userName = info?["userName"]  {
-            let user = User(peerID: peerID, userName: userName)
-            users.append(user)
+            let conversationUser = ConversationUser(peerID: peerID, userName: userName)
+            users.append(conversationUser)
             
             let session = MCSession(peer: myPeerID, securityIdentity: nil, encryptionPreference: .none)
             session.delegate = self

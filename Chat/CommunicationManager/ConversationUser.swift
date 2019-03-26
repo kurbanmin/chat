@@ -1,5 +1,5 @@
 //
-//  User.swift
+//  ConversationUser.swift
 //  Chat
 //
 //  Created by Qurban on 19/03/2019.
@@ -9,7 +9,7 @@
 import Foundation
 import MultipeerConnectivity
 
-class User {
+class ConversationUser {
     var peerID: MCPeerID
     var userName: String
     
