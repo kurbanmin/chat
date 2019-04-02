@@ -9,13 +9,13 @@
 import UIKit
 
 class MessageCell: UITableViewCell, MessageCellConfiguration {
-    
+
     var messageText: String? {
         didSet {
             messageLabel.text = messageText
         }
     }
-    
+
     @IBOutlet weak var messageLabel: UILabel!
-    
+
 }

@@ -9,11 +9,11 @@
 import Foundation
 
 protocol CommunicatorDelegate: class {
-    func didFoundUser(userID: String, userName: String)
+    func didFoundUser(userID: String, userName: String?)
     func didLostUser(userID: String)
-    
+
     func failedToStartBrowsing(error: Error)
     func failedToStartAdvertising(error: Error)
-    
+
     func didRecieveMessage(text: String, fromUser: String, to user: String)
 }

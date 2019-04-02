@@ -12,7 +12,7 @@ import MultipeerConnectivity
 class ConversationUser {
     var peerID: MCPeerID
     var userName: String
-    
+
     init(peerID: MCPeerID, userName: String) {
         self.peerID = peerID
         self.userName = userName

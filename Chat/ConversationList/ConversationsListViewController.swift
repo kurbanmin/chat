@@ -9,132 +9,66 @@
 import UIKit
 
 class ConversationsListViewController: UIViewController {
-    var conversationsSections: [ConversationSection] = []
-    
-    let closure: (UIColor) -> () = { selectedTheme in
+    var communicationManager = CommunicationManager.shared
+
+    var dataSource: ConversationsListDataSource!
+
+    var conversationModel: ConversationModel!
+
+    let closure: (UIColor) -> Void = { selectedTheme in
         DispatchQueue.global().async {
             Logger.logThemeChanging(selectedTheme: selectedTheme)
             let colorData = NSKeyedArchiver.archivedData(withRootObject: selectedTheme)
             UserDefaults.standard.set(colorData, forKey: "Theme")
-            
+
             DispatchQueue.main.async {
                 UINavigationBar.appearance().barTintColor = selectedTheme
             }
         }
     }
-    
+
     @IBOutlet weak var tableView: UITableView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         title = "Tinkoff Chat"
-        
-        tableView.register(UINib(nibName: "ConversationCell", bundle: Bundle.main), forCellReuseIdentifier: "ConversationCell")
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.estimatedRowHeight = 100
-        tableView.rowHeight = UITableView.automaticDimension
+
+        dataSource = ConversationsListDataSource(tableView: tableView)
+        dataSource.delegate = self
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        CommunicationManager.shared.delegate = self
+
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
-        
-        if let vc = segue.destination as? ConversationViewController, let indexPath = tableView.indexPathForSelectedRow {
-            vc.conversation = conversationsSections[indexPath.section].conversations[indexPath.row]
+
+        if let conversationVC = segue.destination as? ConversationViewController {
+            conversationVC.conversationModel = conversationModel
         }
-        
-        // Swift
+
         if segue.identifier == "ShowThemesViewController" {
-            if segue.identifier == "ShowThemesViewController" {
-                if let nc = segue.destination as? UINavigationController, let vc = nc.topViewController as? ThemesViewController {
-                    
-                    let model = Themes()
-                    model.theme1 = .blue
-                    model.theme2 = .black
-                    model.theme3 = .purple
-                    
-                    vc.model = model
-                    vc.closure = closure
-                }
+            if let navigationController = segue.destination as? UINavigationController,
+                let themesVC = navigationController.topViewController as? ThemesViewController {
+
+                let model = Themes()
+                model.theme1 = .blue
+                model.theme2 = .black
+                model.theme3 = .purple
+
+                themesVC.model = model
+                themesVC.closure = closure
             }
         }
-        
-        // Objective-c
-//        if segue.identifier == "ShowThemesViewController" {
-//            if let nc = segue.destination as? UINavigationController, let vc = nc.topViewController as? ThemesViewController {
-//
-//                let model = Themes()
-//                model.theme1 = .blue
-//                model.theme2 = .black
-//                model.theme3 = .purple
-//
-//                vc.model = model
-//                vc.delegate = self
-//            }
-//        }
     }
 }
 
-extension ConversationsListViewController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return conversationsSections.count
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return conversationsSections[section].conversations.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ConversationCell", for: indexPath) as! ConversationCell
-        let conversation = conversationsSections[indexPath.section].conversations[indexPath.row]
-        
-        cell.name = conversation.name
-        cell.date = conversation.messages.last?.date
-        cell.message = conversation.messages.last?.text
-        cell.online = conversation.online
-        cell.hasUnreadMessages = conversation.hasUnreadMessages
-    
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return conversationsSections[section].title
-    }
-}
-
-extension ConversationsListViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+extension ConversationsListViewController: ConversationsListDataSourceDelegate {
+    func showConversation(conversationModel: ConversationModel) {
+        self.conversationModel = conversationModel
         performSegue(withIdentifier: "ShowConversation", sender: nil)
-        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
-extension ConversationsListViewController: CommunicationManagerDelegate {
-    func setup(onlineConversations: [Conversation], offlineConversations: [Conversation]) {
-        let onlineSection = ConversationSection(title: "Online", conversations: onlineConversations)
-        let offlineSection = ConversationSection(title: "History", conversations: offlineConversations)
-        
-        conversationsSections = [onlineSection, offlineSection]
-        
-        DispatchQueue.main.async { [weak self] in            self?.tableView.reloadData()
-        }
-    }
-}
-
-//extension ConversationsListViewController: ThemesViewControllerDelegate {
-//    func themesViewController(_ controller: ThemesViewController, didSelectTheme selectedTheme: UIColor) {
-//        Logger.logThemeChanging(selectedTheme: selectedTheme)
-//        UINavigationBar.appearance().barTintColor = selectedTheme
-//
-//        let colorData = NSKeyedArchiver.archivedData(withRootObject: selectedTheme)
-//        UserDefaults.standard.set(colorData, forKey: "Theme")
-//    }
-//}
-
-

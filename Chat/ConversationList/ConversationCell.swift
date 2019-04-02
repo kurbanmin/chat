@@ -8,14 +8,14 @@
 
 import UIKit
 
-class ConversationCell: UITableViewCell, ConversationCellConfiguration  {
-    
+class ConversationCell: UITableViewCell, ConversationCellConfiguration {
+
     var name: String? {
         didSet {
-            nameLabel.text = name 
+            nameLabel.text = name
         }
     }
-    
+
     var message: String? {
         didSet {
             if let message = message {
@@ -27,26 +27,26 @@ class ConversationCell: UITableViewCell, ConversationCellConfiguration  {
             }
         }
     }
-    
+
     var date: Date? {
         didSet {
             guard let date = date else {
                 dateLabel.text = ""
                 return
             }
-            
+
             let dateFormatter = DateFormatter()
-            
+
             if Calendar.current.isDateInToday(date) {
                 dateFormatter.dateFormat = "HH:mm"
             } else {
                 dateFormatter.dateFormat = "dd MMM"
             }
-            
+
             dateLabel.text = dateFormatter.string(from: date)
         }
     }
-    
+
     var online: Bool = false {
         didSet {
             if online {
@@ -56,7 +56,7 @@ class ConversationCell: UITableViewCell, ConversationCellConfiguration  {
             }
         }
     }
-    
+
     var hasUnreadMessages: Bool = false {
         didSet {
             if hasUnreadMessages {
@@ -64,8 +64,8 @@ class ConversationCell: UITableViewCell, ConversationCellConfiguration  {
             }
         }
     }
-    
+
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var messageLabel: UILabel!    
+    @IBOutlet weak var messageLabel: UILabel!
 }

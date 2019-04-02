@@ -10,41 +10,43 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
+
     var window: UIWindow?
-    
+
     var oldState: UIApplication.State = .inactive
-    
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         Logger.log(strigfrom(oldState: &oldState, newState: application.applicationState, functionName: #function))
-        
-        if let colorData = UserDefaults.standard.data(forKey: "Theme"), let color = NSKeyedUnarchiver.unarchiveObject(with: colorData) as? UIColor {
+
+        if let colorData = UserDefaults.standard.data(forKey: "Theme"),
+            let color = NSKeyedUnarchiver.unarchiveObject(with: colorData) as? UIColor {
             UINavigationBar.appearance().barTintColor = color
         }
-        
+
         return true
     }
-    
+
     func applicationWillResignActive(_ application: UIApplication) {
         Logger.log(strigfrom(oldState: &oldState, newState: application.applicationState, functionName: #function))
     }
-    
+
     func applicationDidEnterBackground(_ application: UIApplication) {
         Logger.log(strigfrom(oldState: &oldState, newState: application.applicationState, functionName: #function))
     }
-    
+
     func applicationWillEnterForeground(_ application: UIApplication) {
         Logger.log(strigfrom(oldState: &oldState, newState: application.applicationState, functionName: #function))
     }
-    
+
     func applicationDidBecomeActive(_ application: UIApplication) {
         Logger.log(strigfrom(oldState: &oldState, newState: application.applicationState, functionName: #function))
     }
-    
+
     func applicationWillTerminate(_ application: UIApplication) {
         Logger.log(strigfrom(oldState: &oldState, newState: application.applicationState, functionName: #function))
     }
-    
+
     func string(from state: UIApplication.State) -> String {
         switch state {
         case .active:
@@ -55,11 +57,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return "Background"
         }
     }
-    
-    func strigfrom(oldState: inout UIApplication.State, newState: UIApplication.State,functionName: String) -> String {
+
+    func strigfrom(oldState: inout UIApplication.State, newState: UIApplication.State, functionName: String) -> String {
         let result = "Application moved from \(string(from: oldState)) to \(string(from: newState)): \(functionName)"
         oldState = newState
         return result
     }
 }
-

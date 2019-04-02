@@ -14,7 +14,7 @@ class Logger {
         print(text)
         #endif
     }
-    
+
     static func logThemeChanging(selectedTheme: UIColor) {
         #if DEBUG
         print(selectedTheme)

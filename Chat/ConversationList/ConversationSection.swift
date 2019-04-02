@@ -9,6 +9,6 @@
 import Foundation
 
 struct ConversationSection {
-    let title : String
+    let title: String
     let conversations: [Conversation]
 }
