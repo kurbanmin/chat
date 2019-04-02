@@ -39,7 +39,7 @@
     <fetchRequest name="AppUser" entity="AppUser"/>
     <fetchRequest name="ConversationsWithOnlineUsers" entity="Conversation" predicateString="participant.isOnline == $isOnline"/>
     <fetchRequest name="ConversationWithID" entity="Conversation" predicateString="conversationID == $conversationID"/>
-    <fetchRequest name="MessagesWithConversationID" entity="User" predicateString="conversation.conversationID == $conversationID"/>
+    <fetchRequest name="MessagesWithConversationID" entity="Message" predicateString="conversation.conversationID == $conversationID"/>
     <fetchRequest name="UsersOnline" entity="User" predicateString="isOnline == $isOnline"/>
     <fetchRequest name="UserWithID" entity="User" predicateString="userID == $userID"/>
     <elements>

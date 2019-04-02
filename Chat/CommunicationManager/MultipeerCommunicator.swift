@@ -70,7 +70,6 @@ extension MultipeerCommunicator: MCNearbyServiceBrowserDelegate {
     func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
         delegate?.didLostUser(userID: peerID.displayName)
         if let sessionIndex = sessions.firstIndex(where: { $0.connectedPeers.contains(peerID) }) {
-            sessions[sessionIndex].disconnect()
             sessions.remove(at: sessionIndex)
         }
     }
@@ -112,8 +111,8 @@ extension MultipeerCommunicator: MCSessionDelegate {
             break
         case .notConnected:
             if let sessionIndex = sessions.firstIndex(where: { $0.connectedPeers.contains(peerID) }) {
-                sessions[sessionIndex].disconnect()
                 sessions.remove(at: sessionIndex)
+                delegate?.didLostUser(userID: peerID.displayName)
             }
         }
     }

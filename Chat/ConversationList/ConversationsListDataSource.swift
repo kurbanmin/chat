@@ -92,6 +92,8 @@ extension ConversationsListDataSource: UITableViewDataSource, UITableViewDelegat
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
         let conversation = self.frc.object(at: indexPath)
         let conversationModel = ConversationModel(conversationID: conversation.conversationID,
                                                   userName: conversation.participant?.name)

@@ -108,7 +108,4 @@ public class User: NSManagedObject {
 
         return fetchRequest
     }
-    static func updateUser(userID: String, userName: String?, isOnline: Bool, completionHandler: (() -> Void)?) {
-
-    }
 }

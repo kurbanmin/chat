@@ -89,6 +89,7 @@ class StorageManager {
             message.isIncoming = isIncoming
             message.date = Date() as NSDate
             message.text = text
+            message.conversation = conversation
 
             if isIncoming {
                 message.sender = User.findOrInsertUser(with: conversationID, in: self.saveContext)
@@ -100,6 +101,8 @@ class StorageManager {
 
             conversation?.addToMessages(message)
             conversation?.lastMessage = message
+
+            self.coreDataStack.performSave(with: self.saveContext, completion: nil)
         }
     }
 
