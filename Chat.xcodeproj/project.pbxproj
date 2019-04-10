@@ -20,6 +20,7 @@
 		B00730622247D18200EEC148 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00730612247D18200EEC148 /* CoreDataStack.swift */; };
 		B00730652247EAAC00EEC148 /* MyDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B00730632247EAAC00EEC148 /* MyDataModel.xcdatamodeld */; };
 		B00792FC225E02DC005B9663 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00792FB225E02DC005B9663 /* ProfileModel.swift */; };
+		B00792FE225E153B005B9663 /* RootAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00792FD225E153B005B9663 /* RootAssembly.swift */; };
 		B0093B182217062100ECEC01 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0093B172217062100ECEC01 /* Logger.swift */; };
 		B01858CB22231621001A6711 /* ConversationCellConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01858CA22231621001A6711 /* ConversationCellConfiguration.swift */; };
 		B02767E4222D2EA1004D8648 /* Themes.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B02767E3222D2EA1004D8648 /* Themes.storyboard */; };
@@ -46,7 +47,6 @@
 		B080F505225BF8BD00225A88 /* AppUser+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B080F4FD225BF8BD00225A88 /* AppUser+CoreDataClass.swift */; };
 		B080F506225BF8BD00225A88 /* Conversation+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B080F4FE225BF8BD00225A88 /* Conversation+CoreDataClass.swift */; };
 		B080F507225BF8BD00225A88 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B080F4FF225BF8BD00225A88 /* User+CoreDataProperties.swift */; };
-		B080F50D225CF30700225A88 /* RootAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B080F50C225CF30700225A88 /* RootAssembly.swift */; };
 		B080F510225CF77B00225A88 /* CoreAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B080F50F225CF77B00225A88 /* CoreAssembly.swift */; };
 		B080F512225D0A6900225A88 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B080F511225D0A6900225A88 /* ProfileService.swift */; };
 		B09CD94B2220650000CA4B18 /* ConversationsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09CD94A2220650000CA4B18 /* ConversationsListViewController.swift */; };
@@ -71,6 +71,7 @@
 		B00730612247D18200EEC148 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		B00730642247EAAC00EEC148 /* MyDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyDataModel.xcdatamodel; sourceTree = "<group>"; };
 		B00792FB225E02DC005B9663 /* ProfileModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
+		B00792FD225E153B005B9663 /* RootAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootAssembly.swift; sourceTree = "<group>"; };
 		B0093B172217062100ECEC01 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		B01858CA22231621001A6711 /* ConversationCellConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationCellConfiguration.swift; sourceTree = "<group>"; };
 		B02767E3222D2EA1004D8648 /* Themes.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Themes.storyboard; sourceTree = "<group>"; };
@@ -104,7 +105,6 @@
 		B080F4FD225BF8BD00225A88 /* AppUser+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppUser+CoreDataClass.swift"; sourceTree = "<group>"; };
 		B080F4FE225BF8BD00225A88 /* Conversation+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Conversation+CoreDataClass.swift"; sourceTree = "<group>"; };
 		B080F4FF225BF8BD00225A88 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		B080F50C225CF30700225A88 /* RootAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RootAssembly.swift; path = /Users/qrbn/Desktop/Chat/Chat/RootAssembly.swift; sourceTree = "<absolute>"; };
 		B080F50F225CF77B00225A88 /* CoreAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreAssembly.swift; sourceTree = "<group>"; };
 		B080F511225D0A6900225A88 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		B09CD94A2220650000CA4B18 /* ConversationsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsListViewController.swift; sourceTree = "<group>"; };
@@ -242,14 +242,14 @@
 				B080F4E3225BF53B00225A88 /* 1. PresentationLayer */,
 				B080F4E4225BF56300225A88 /* 2. ServiceLayer */,
 				B080F4E5225BF58D00225A88 /* 3. CoreLayer */,
+				B0093B172217062100ECEC01 /* Logger.swift */,
 				B005A29A222FF4C30086EFA0 /* Themes */,
 				B0336C51220F227700DB7B29 /* Assets.xcassets */,
-				B080F50C225CF30700225A88 /* RootAssembly.swift */,
 				B0336C53220F227700DB7B29 /* LaunchScreen.storyboard */,
 				B0336C56220F227700DB7B29 /* Info.plist */,
 				B02767E5222D2F35004D8648 /* Chat-Bridging-Header.h */,
 				B0336C4A220F227500DB7B29 /* AppDelegate.swift */,
-				B0093B172217062100ECEC01 /* Logger.swift */,
+				B00792FD225E153B005B9663 /* RootAssembly.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -479,6 +479,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B00792FE225E153B005B9663 /* RootAssembly.swift in Sources */,
 				1598B4E5223C304C00629A59 /* Communicator.swift in Sources */,
 				B080F4DC225A827A00225A88 /* ConversationModel.swift in Sources */,
 				B080F505225BF8BD00225A88 /* AppUser+CoreDataClass.swift in Sources */,
@@ -511,7 +512,6 @@
 				B00730652247EAAC00EEC148 /* MyDataModel.xcdatamodeld in Sources */,
 				B09CD94E2220654600CA4B18 /* ConversationCell.swift in Sources */,
 				B0336C4B220F227500DB7B29 /* AppDelegate.swift in Sources */,
-				B080F50D225CF30700225A88 /* RootAssembly.swift in Sources */,
 				1598B4E7223C31F800629A59 /* CommunicatorDelegate.swift in Sources */,
 				B080F4D42253F16600225A88 /* ConversationDataSource.swift in Sources */,
 				B080F503225BF8BD00225A88 /* AppUser+CoreDataProperties.swift in Sources */,
