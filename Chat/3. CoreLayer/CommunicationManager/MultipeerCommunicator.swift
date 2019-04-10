@@ -22,6 +22,8 @@ class MultipeerCommunicator: NSObject, Communicator {
     var sessions: [MCSession] = []
     var users: [ConversationUser] = []
 
+    var discoveryInfo = ["userName": "Kurban"]
+
     override init() {
         super.init()
         myPeerID = MCPeerID(displayName: UIDevice.current.name)
@@ -31,7 +33,7 @@ class MultipeerCommunicator: NSObject, Communicator {
         browcer.startBrowsingForPeers()
 
         advertiser = MCNearbyServiceAdvertiser(peer: myPeerID,
-                                               discoveryInfo: ["userName": "Kurban"],
+                                               discoveryInfo: discoveryInfo,
                                                serviceType: "tinkoff-chat")
         advertiser.delegate = self
         advertiser.startAdvertisingPeer()
@@ -56,6 +58,10 @@ extension MultipeerCommunicator: MCNearbyServiceBrowserDelegate {
     func browser(_ browser: MCNearbyServiceBrowser,
                  foundPeer peerID: MCPeerID,
                  withDiscoveryInfo info: [String: String]?) {
+        if sessions.filter({ $0.connectedPeers.contains(peerID) }).first != nil {
+            return
+        }
+
         if let userName = info?["userName"] {
             let conversationUser = ConversationUser(peerID: peerID, userName: userName)
             users.append(conversationUser)
@@ -63,14 +69,16 @@ extension MultipeerCommunicator: MCNearbyServiceBrowserDelegate {
             let session = MCSession(peer: myPeerID, securityIdentity: nil, encryptionPreference: .none)
             session.delegate = self
             sessions.append(session)
-            browser.invitePeer(peerID, to: session, withContext: nil, timeout: 10)
+
+            let context = NSKeyedArchiver.archivedData(withRootObject: discoveryInfo)
+            browser.invitePeer(peerID, to: session, withContext: context, timeout: 10)
         }
     }
 
     func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
-        delegate?.didLostUser(userID: peerID.displayName)
         if let sessionIndex = sessions.firstIndex(where: { $0.connectedPeers.contains(peerID) }) {
             sessions.remove(at: sessionIndex)
+            delegate?.didLostUser(userID: peerID.displayName)
         }
     }
 
@@ -88,6 +96,17 @@ extension MultipeerCommunicator: MCNearbyServiceAdvertiserDelegate {
         if let session = sessions.filter({ $0.connectedPeers.contains(peerID) }).first {
             invitationHandler(false, session)
         } else {
+            var name = "Unknown"
+            if
+                let context = context,
+                let discoveryInfo = NSKeyedUnarchiver.unarchiveObject(with: context) as? [String: String],
+                let userName = discoveryInfo["userName"] {
+                name = userName
+            }
+
+            let conversationUser = ConversationUser(peerID: peerID, userName: name)
+            users.append(conversationUser)
+
             let session = MCSession(peer: myPeerID, securityIdentity: nil, encryptionPreference: .none)
             session.delegate = self
             sessions.append(session)

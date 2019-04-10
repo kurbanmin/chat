@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, IProfileModelDelegate {
 
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var profileImageView: UIImageView!
@@ -19,8 +19,14 @@ class ProfileViewController: UIViewController {
 
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
 
-    var storageManager: StorageManager = StorageManager.shared
     var profile: Profile!
+    private var profileModel: IProfileModel?
+    private var presentationAssembly: IPresentationAssembly?
+
+    func configure(profileModel: ProfileModel, presentationAssembly: PresentationAssembly) {
+        self.profileModel = profileModel
+        self.presentationAssembly = presentationAssembly
+    }
 
     @IBAction func cancelAction(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
@@ -58,20 +64,35 @@ class ProfileViewController: UIViewController {
 
         activityIndicator.startAnimating()
 
-        storageManager.getProfile { [weak self] (profile) in
-            self?.profile = profile
-            self?.nameTextField.text = profile?.name
-            self?.descriptionTextView.text = profile?.description
-            self?.profileImageView.image = profile?.image
-
-            self?.check()
-            self?.activityIndicator.stopAnimating()
-        }
+        profileModel?.getProfile()
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         setupUI()
+    }
+
+    func show(error message: String) {
+
+    }
+
+    func didSave() {
+        DispatchQueue.main.async { [weak self] in
+            self?.showSuccessAlert()
+        }
+    }
+
+    func setup(profile: Profile) {
+        self.profile = profile
+        self.nameTextField.text = profile.name
+        self.descriptionTextView.text = profile.description
+
+        if let image = profile.image {
+            self.profileImageView.image = image
+        }
+
+        self.check()
+        self.activityIndicator.stopAnimating()
     }
 
     func setupUI() {
@@ -92,11 +113,7 @@ class ProfileViewController: UIViewController {
         self.profile.description = self.descriptionTextView.text
         self.profile.image = self.profileImageView.image
 
-        storageManager.save(profile: self.profile) { [weak self] in
-            DispatchQueue.main.async {
-                self?.showSuccessAlert()
-            }
-        }
+        profileModel?.save(profile: self.profile)
     }
 
     func check() {

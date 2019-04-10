@@ -8,7 +8,15 @@
 
 import Foundation
 import CoreData
-class StorageManager {
+
+protocol IStorageManager {
+    func getProfile(completionHandler: @escaping (Profile?) -> Void)
+    func save(profile: Profile, completionHandler: (() -> Void)?)
+    func updateUser(with userID: String, userName: String?, isOnline: Bool, completionHandler:(() -> Void)?)
+    func appendMessageToConversation(conversationID: String, text: String, isIncoming: Bool)
+}
+
+class StorageManager: IStorageManager {
     static var shared = StorageManager()
 
     let coreDataStack = CoreDataStack()

@@ -12,7 +12,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    private let rootAssembley = RootAssembly()
     var oldState: UIApplication.State = .inactive
 
     func application(_ application: UIApplication,
@@ -22,6 +22,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let colorData = UserDefaults.standard.data(forKey: "Theme"),
             let color = NSKeyedUnarchiver.unarchiveObject(with: colorData) as? UIColor {
             UINavigationBar.appearance().barTintColor = color
+        }
+
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+
+        if let conversationListVC = rootAssembley.presentationAssembly.conversationsListVC() {
+            let navigationController = UINavigationController(rootViewController: conversationListVC)
+            window?.rootViewController = navigationController
+            window?.makeKeyAndVisible()
         }
 
         return true

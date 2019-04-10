@@ -24,7 +24,7 @@ class ConversationDataSource: NSObject {
         guard let fetchRequest = Message.fetchRequestMessages(with: conversationID, model: self.storageManager.model)
         else { return }
 
-        let dateSortDescriptor = NSSortDescriptor(key: "date", ascending: false)
+        let dateSortDescriptor = NSSortDescriptor(key: "date", ascending: true)
         fetchRequest.sortDescriptors = [dateSortDescriptor]
 
         self.frc = NSFetchedResultsController<Message>(fetchRequest: fetchRequest,

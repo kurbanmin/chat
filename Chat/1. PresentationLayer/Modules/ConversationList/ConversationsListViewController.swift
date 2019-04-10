@@ -8,12 +8,17 @@
 
 import UIKit
 
-class ConversationsListViewController: UIViewController {
-    var communicationManager = CommunicationManager.shared
-
+class ConversationsListViewController: UIViewController, IConversationModelDelegate {
     var dataSource: ConversationsListDataSource!
+    var conversationObject: ConversationObject!
 
-    var conversationModel: ConversationModel!
+    var conversationsListModel: IConversationsListModel?
+    var presentationAssembly: IPresentationAssembly?
+
+    func configure(conversationsListModel: ConversationsListModel, presentationAssembly: PresentationAssembly) {
+        self.presentationAssembly = presentationAssembly
+        self.conversationsListModel = conversationsListModel
+    }
 
     let closure: (UIColor) -> Void = { selectedTheme in
         DispatchQueue.global().async {
@@ -29,6 +34,15 @@ class ConversationsListViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
 
+    @IBAction func profileAction(_ sender: UIBarButtonItem) {
+        if let profileNC = presentationAssembly?.profileNC() {
+            self.present(profileNC, animated: true, completion: nil)
+        }
+    }
+
+    func show(error message: String) {
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -38,17 +52,8 @@ class ConversationsListViewController: UIViewController {
         dataSource.delegate = self
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-    }
-
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
-
-        if let conversationVC = segue.destination as? ConversationViewController {
-            conversationVC.conversationModel = conversationModel
-        }
 
         if segue.identifier == "ShowThemesViewController" {
             if let navigationController = segue.destination as? UINavigationController,
@@ -67,8 +72,9 @@ class ConversationsListViewController: UIViewController {
 }
 
 extension ConversationsListViewController: ConversationsListDataSourceDelegate {
-    func showConversation(conversationModel: ConversationModel) {
-        self.conversationModel = conversationModel
-        performSegue(withIdentifier: "ShowConversation", sender: nil)
+    func showConversation(conversationObject: ConversationObject) {
+        if let conversationVC = presentationAssembly?.conversationVC(conversationObject: conversationObject) {
+            self.navigationController?.pushViewController(conversationVC, animated: true)
+        }
     }
 }

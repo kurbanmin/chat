@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ConversationModel {
+struct ConversationObject {
     var conversationID: String?
     var userName: String?
 }

@@ -87,7 +87,7 @@ public class User: NSManagedObject {
     }
 
     static func generateUserIdString() -> String {
-        return "Kurban"
+        return UIDevice.current.identifierForVendor!.uuidString
     }
 
     static func generateCurrentUserNameString() -> String {

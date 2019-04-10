@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 protocol ConversationsListDataSourceDelegate: class {
-    func showConversation(conversationModel: ConversationModel)
+    func showConversation(conversationObject: ConversationObject)
 }
 
 class ConversationsListDataSource: NSObject {
@@ -39,7 +39,7 @@ class ConversationsListDataSource: NSObject {
         guard let fetchRequest = Conversation.fetchRequestConversationsWithOnlineUsers(model: self.storageManager.model)
         else { return }
 
-        let dateSortDescriptor = NSSortDescriptor(key: "lastMessage.date", ascending: false)
+        let dateSortDescriptor = NSSortDescriptor(key: "lastMessage.date", ascending: true)
         let nameSortDescriptor = NSSortDescriptor(key: "participant.name", ascending: true)
         fetchRequest.sortDescriptors = [dateSortDescriptor, nameSortDescriptor]
 
@@ -93,11 +93,11 @@ extension ConversationsListDataSource: UITableViewDataSource, UITableViewDelegat
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
+
         let conversation = self.frc.object(at: indexPath)
-        let conversationModel = ConversationModel(conversationID: conversation.conversationID,
+        let conversationObject = ConversationObject(conversationID: conversation.conversationID,
                                                   userName: conversation.participant?.name)
-        delegate?.showConversation(conversationModel: conversationModel)
+        delegate?.showConversation(conversationObject: conversationObject)
     }
 }
 extension ConversationsListDataSource: NSFetchedResultsControllerDelegate {

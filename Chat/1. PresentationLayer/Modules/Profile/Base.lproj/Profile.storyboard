@@ -13,7 +13,7 @@
         <!--Navigation Controller-->
         <scene sceneID="1gj-gl-9Es">
             <objects>
-                <navigationController storyboardIdentifier="ProfileViewController" automaticallyAdjustsScrollViewInsets="NO" id="3a4-GR-v5P" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ProfileNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="3a4-GR-v5P" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="wGa-U4-rpf">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -31,7 +31,7 @@
         <!--Profile View Controller-->
         <scene sceneID="1ts-Yd-m50">
             <objects>
-                <viewController id="rZV-ga-97y" customClass="ProfileViewController" customModule="Chat" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProfileViewController" id="rZV-ga-97y" customClass="ProfileViewController" customModule="Chat" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XUg-WK-cl9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

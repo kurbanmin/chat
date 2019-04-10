@@ -8,29 +8,36 @@
 
 import UIKit
 
-class ConversationViewController: UIViewController {
-
+class ConversationViewController: UIViewController, IConversationModelDelegate {
     @IBOutlet var bottomConstraint: NSLayoutConstraint!
 
     @IBOutlet var sendMessageButton: UIButton!
     @IBOutlet var messageTextField: UITextField!
     @IBOutlet weak var tableView: UITableView!
 
-    var conversationModel: ConversationModel!
+    var conversationObject: ConversationObject!
+    var conversationModel: ConversationModel?
 
-    var dataSource: ConversationDataSource!
+    var presentationAssembly: IPresentationAssembly?
+    private var dataSource: ConversationDataSource!
+    var presentation: PresentationAssembly!
+    func configure(conversationModel: ConversationModel, presentationAssembly: IPresentationAssembly) {
+        self.conversationModel = conversationModel
+        self.presentationAssembly = presentationAssembly
+
+    }
+
+    func show(error message: String) {
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = conversationModel.userName
+        title = conversationObject.userName
 
-        if let conversationID = conversationModel.conversationID {
+        if let conversationID = conversationObject.conversationID {
             dataSource = ConversationDataSource(conversationID: conversationID, tableView: tableView)
         }
-
-//        sendMessageButton.isEnabled = conversation.isOnline
-//        conversation.hasUnreadMessages = false
 
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillShow(notification:)),
@@ -67,11 +74,10 @@ class ConversationViewController: UIViewController {
 
     @IBAction func sendMessage(_ sender: UIButton) {
         if let text = messageTextField.text, !text.isEmpty {
-            if let conversationID = conversationModel.conversationID {
-                CommunicationManager.shared.sendMessage(text: text, to: conversationID)
+            if let conversationID = conversationObject.conversationID {
+                conversationModel?.sendMessage(text: text, to: conversationID)
             }
             messageTextField.text = ""
-            tableView.reloadData()
         }
 
         messageTextField.resignFirstResponder()
