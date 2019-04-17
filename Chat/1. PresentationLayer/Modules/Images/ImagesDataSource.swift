@@ -43,12 +43,12 @@ class ImagesDataSource: NSObject, IImagesDataSource {
     }
 
     func setup(hits: [Hit]) {
+        loading = false
         self.hits += hits
         collectionView.performBatchUpdates({
             let indexPaths = (self.hits.count-20..<self.hits.count).map { IndexPath(row: $0, section: 0) }
             collectionView.insertItems(at: indexPaths)
         }, completion: nil)
-        loading = false
     }
 }
 extension ImagesDataSource: UICollectionViewDataSource {
