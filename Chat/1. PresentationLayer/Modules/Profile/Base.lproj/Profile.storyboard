@@ -36,7 +36,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder-user" translatesAutoresizingMaskIntoConstraints="NO" id="f8E-ap-9T7">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder-user" translatesAutoresizingMaskIntoConstraints="NO" id="f8E-ap-9T7">
                                 <rect key="frame" x="15" y="79" width="345" height="345"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="f8E-ap-9T7" secondAttribute="height" multiplier="1:1" id="ioN-OD-v39"/>
@@ -148,7 +148,48 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H8p-hi-ozo" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1140" y="115.59220389805098"/>
+            <point key="canvasLocation" x="1118" y="116"/>
+        </scene>
+        <!--Images View Controller-->
+        <scene sceneID="hDk-2l-Tvg">
+            <objects>
+                <viewController storyboardIdentifier="ImagesViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="nHN-f8-iKT" customClass="ImagesViewController" customModule="Chat" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Bp5-t7-MFb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="pE5-qq-6j3">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="sgL-A6-TL7">
+                                    <size key="itemSize" width="100" height="100"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="uHa-GX-yVA">
+                                <rect key="frame" x="169" y="325" width="37" height="37"/>
+                                <color key="color" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="uHa-GX-yVA" firstAttribute="centerX" secondItem="wRl-ff-htE" secondAttribute="centerX" id="GlX-bT-eiC"/>
+                            <constraint firstItem="uHa-GX-yVA" firstAttribute="centerY" secondItem="wRl-ff-htE" secondAttribute="centerY" id="bis-37-PkL"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="wRl-ff-htE"/>
+                    </view>
+                    <connections>
+                        <outlet property="activityIndicator" destination="uHa-GX-yVA" id="biw-Fk-9It"/>
+                        <outlet property="colletionView" destination="pE5-qq-6j3" id="cR8-Tv-vvk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NvO-lE-qZb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1974" y="96"/>
         </scene>
     </scenes>
     <resources>

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController, IProfileModelDelegate {
+class ProfileViewController: UIViewController, IProfileModelDelegate, IImagesViewControllerDelegate {
 
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var profileImageView: UIImageView!
@@ -22,11 +22,6 @@ class ProfileViewController: UIViewController, IProfileModelDelegate {
     var profile: Profile!
     private var profileModel: IProfileModel?
     private var presentationAssembly: IPresentationAssembly?
-
-    func configure(profileModel: ProfileModel, presentationAssembly: PresentationAssembly) {
-        self.profileModel = profileModel
-        self.presentationAssembly = presentationAssembly
-    }
 
     @IBAction func cancelAction(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
@@ -72,6 +67,11 @@ class ProfileViewController: UIViewController, IProfileModelDelegate {
         setupUI()
     }
 
+    func configure(profileModel: ProfileModel, presentationAssembly: PresentationAssembly) {
+        self.profileModel = profileModel
+        self.presentationAssembly = presentationAssembly
+    }
+
     func show(error message: String) {
 
     }
@@ -114,6 +114,11 @@ class ProfileViewController: UIViewController, IProfileModelDelegate {
         self.profile.image = self.profileImageView.image
 
         profileModel?.save(profile: self.profile)
+    }
+
+    func didSelect(image: UIImage) {
+        profileImageView.image = image
+        check()
     }
 
     func check() {
@@ -163,10 +168,18 @@ class ProfileViewController: UIViewController, IProfileModelDelegate {
             self.showImagePicker(sourceType: .camera)
         }
 
+        let downloadAction = UIAlertAction(title: "Загрузить", style: .default) { (_) in
+            if let imagesVC = self.presentationAssembly?.imagesVC() {
+                imagesVC.delegate = self
+                self.present(imagesVC, animated: true, completion: nil)
+            }
+        }
+
         let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
 
         alert.addAction(galeryAction)
         alert.addAction(cameraAction)
+        alert.addAction(downloadAction)
         alert.addAction(cancelAction)
 
         present(alert, animated: true, completion: nil)

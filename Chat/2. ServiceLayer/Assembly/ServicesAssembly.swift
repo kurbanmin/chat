@@ -10,7 +10,8 @@ import Foundation
 
 protocol IServicesAssembly {
     var mcService: IMCService { get }
-    var profileService: IProfileService {get}
+    var profileService: IProfileService { get }
+    var imagesService: IImagesService { get }
 }
 
 class ServicesAssembley: IServicesAssembly {
@@ -23,4 +24,5 @@ class ServicesAssembley: IServicesAssembly {
     lazy var mcService: IMCService = MCServise(communicationManager: self.coreAssembly.communicationManager,
                                                storageManager: self.coreAssembly.storageManager)
     lazy var profileService: IProfileService = ProfileService(storageManager: coreAssembly.storageManager)
+    lazy var imagesService: IImagesService = ImagesService(networkManager: coreAssembly.networkManager)
 }

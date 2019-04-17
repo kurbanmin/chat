@@ -11,6 +11,7 @@ protocol IPresentationAssembly {
     func profileNC() -> UINavigationController?
     func conversationVC(conversationObject: ConversationObject) -> ConversationViewController?
     func conversationsListVC() -> ConversationsListViewController?
+    func imagesVC() -> ImagesViewController?
 }
 
 class PresentationAssembly: IPresentationAssembly {
@@ -64,5 +65,15 @@ class PresentationAssembly: IPresentationAssembly {
         model.delegate = profileVC
 
         return profileNC
+    }
+
+    func imagesVC() -> ImagesViewController? {
+        let model = ImagesModel(imagesService: serviceAssembly.imagesService)
+        let storyboard = UIStoryboard(name: "Profile", bundle: nil)
+        let imagesVC = storyboard.instantiateViewController(
+            withIdentifier: "ImagesViewController") as? ImagesViewController
+        imagesVC?.configure(imagesModel: model, presentationAssembly: self)
+        model.delegate = imagesVC
+        return imagesVC
     }
 }
