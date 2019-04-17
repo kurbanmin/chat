@@ -79,7 +79,7 @@ extension ImagesDataSource: UICollectionViewDelegate {
         willDisplay cell: UICollectionViewCell,
         forItemAt indexPath: IndexPath
         ) {
-        if indexPath.row == hits.count-10 && !loading {
+        if indexPath.row == hits.count-1 && !loading {
             loading = true
             page += 1
             delegate?.loadImages(page: page)

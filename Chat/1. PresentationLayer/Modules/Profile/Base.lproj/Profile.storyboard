@@ -158,9 +158,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="pE5-qq-6j3">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="pE5-qq-6j3">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="sgL-A6-TL7">
                                     <size key="itemSize" width="100" height="100"/>
@@ -170,15 +169,19 @@
                                 </collectionViewFlowLayout>
                                 <cells/>
                             </collectionView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="uHa-GX-yVA">
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="uHa-GX-yVA">
                                 <rect key="frame" x="169" y="325" width="37" height="37"/>
                                 <color key="color" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="pE5-qq-6j3" firstAttribute="trailing" secondItem="wRl-ff-htE" secondAttribute="trailing" id="AdE-LZ-H2Z"/>
                             <constraint firstItem="uHa-GX-yVA" firstAttribute="centerX" secondItem="wRl-ff-htE" secondAttribute="centerX" id="GlX-bT-eiC"/>
+                            <constraint firstItem="pE5-qq-6j3" firstAttribute="leading" secondItem="wRl-ff-htE" secondAttribute="leading" id="Orw-xY-A0o"/>
+                            <constraint firstItem="pE5-qq-6j3" firstAttribute="top" secondItem="wRl-ff-htE" secondAttribute="top" id="a4X-1t-xwJ"/>
                             <constraint firstItem="uHa-GX-yVA" firstAttribute="centerY" secondItem="wRl-ff-htE" secondAttribute="centerY" id="bis-37-PkL"/>
+                            <constraint firstItem="pE5-qq-6j3" firstAttribute="bottom" secondItem="wRl-ff-htE" secondAttribute="bottom" id="cJH-2p-ffX"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="wRl-ff-htE"/>
                     </view>
