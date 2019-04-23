@@ -8,7 +8,17 @@
 
 import UIKit
 
-class ConversationsListViewController: UIViewController, IConversationModelDelegate {
+protocol IConversationsListViewController {
+    var delegate: IConversationsListViewControllerDelegate? {get set}
+}
+
+protocol IConversationsListViewControllerDelegate: class {
+    func didUpdateConversation(with userID: String, isOnline: Bool)
+}
+
+class ConversationsListViewController: UIViewController, IConversationModelDelegate, IConversationsListViewController {
+    weak var delegate: IConversationsListViewControllerDelegate?
+
     var dataSource: ConversationsListDataSource!
     var conversationObject: ConversationObject!
 
@@ -72,8 +82,13 @@ class ConversationsListViewController: UIViewController, IConversationModelDeleg
 }
 
 extension ConversationsListViewController: ConversationsListDataSourceDelegate {
+    func didUpdateConversation(with userID: String, isOnline: Bool) {
+        delegate?.didUpdateConversation(with: userID, isOnline: isOnline)
+    }
+
     func showConversation(conversationObject: ConversationObject) {
         if let conversationVC = presentationAssembly?.conversationVC(conversationObject: conversationObject) {
+            self.delegate = conversationVC
             self.navigationController?.pushViewController(conversationVC, animated: true)
         }
     }

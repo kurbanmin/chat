@@ -21,19 +21,16 @@ class ConversationViewController: UIViewController, IConversationModelDelegate {
     var presentationAssembly: IPresentationAssembly?
     private var dataSource: ConversationDataSource!
     var presentation: PresentationAssembly!
-    func configure(conversationModel: ConversationModel, presentationAssembly: IPresentationAssembly) {
-        self.conversationModel = conversationModel
-        self.presentationAssembly = presentationAssembly
 
-    }
-
-    func show(error message: String) {
-    }
+    var titleLabel = UILabel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = conversationObject.userName
+        self.navigationItem.titleView = titleLabel
+        titleLabel.text = conversationObject.userName
+        titleLabel.textColor = .green
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
 
         if let conversationID = conversationObject.conversationID {
             dataSource = ConversationDataSource(conversationID: conversationID, tableView: tableView)
@@ -47,6 +44,11 @@ class ConversationViewController: UIViewController, IConversationModelDelegate {
                                                selector: #selector(keyboardWillHide(notification:)),
                                                name: UIResponder.keyboardWillHideNotification,
                                                object: nil)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        titleLabel.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
     }
 
     deinit {
@@ -72,6 +74,14 @@ class ConversationViewController: UIViewController, IConversationModelDelegate {
         })
     }
 
+    func configure(conversationModel: ConversationModel, presentationAssembly: IPresentationAssembly) {
+        self.conversationModel = conversationModel
+        self.presentationAssembly = presentationAssembly
+    }
+
+    func show(error message: String) {
+    }
+
     @IBAction func sendMessage(_ sender: UIButton) {
         if let text = messageTextField.text, !text.isEmpty {
             if let conversationID = conversationObject.conversationID {
@@ -81,5 +91,37 @@ class ConversationViewController: UIViewController, IConversationModelDelegate {
         }
 
         messageTextField.resignFirstResponder()
+    }
+
+    func animateButton(enabled: Bool) {
+        self.sendMessageButton.isEnabled = enabled
+        UIView.animate(withDuration: 0.5, animations: {
+            self.sendMessageButton.transform = CGAffineTransform(scaleX: 1.15, y: 1.15)
+        }, completion: { _ in
+            self.sendMessageButton.transform = .identity
+        })
+    }
+
+    func animateTitleLabel(isOnline: Bool) {
+        if isOnline {
+            UIView.animate(withDuration: 1) {
+                self.titleLabel.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+                self.titleLabel.textColor = .green
+            }
+        } else {
+            UIView.animate(withDuration: 1) {
+                self.titleLabel.transform = .identity
+                self.titleLabel.textColor = .black
+            }
+        }
+    }
+}
+
+extension ConversationViewController: IConversationsListViewControllerDelegate {
+    func didUpdateConversation(with userID: String, isOnline: Bool) {
+        if conversationObject.conversationID == userID {
+            animateTitleLabel(isOnline: isOnline)
+            animateButton(enabled: isOnline)
+        }
     }
 }

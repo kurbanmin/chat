@@ -8,12 +8,15 @@
 
 import Foundation
 import CoreData
-
+protocol IConversationsListDataSource {
+    var delegate: ConversationsListDataSourceDelegate? {get set}
+}
 protocol ConversationsListDataSourceDelegate: class {
     func showConversation(conversationObject: ConversationObject)
+    func didUpdateConversation(with userID: String, isOnline: Bool)
 }
 
-class ConversationsListDataSource: NSObject {
+class ConversationsListDataSource: NSObject, IConversationsListDataSource {
     let storageManager = StorageManager.shared
 
     var tableView: UITableView
@@ -124,6 +127,10 @@ extension ConversationsListDataSource: NSFetchedResultsControllerDelegate {
             tableView.reloadRows(at: [indexPath!], with: .automatic)
         case .delete:
             tableView.deleteRows(at: [indexPath!], with: .automatic)
+        }
+        if let conversation = anObject as? Conversation {
+            guard let conversationID = conversation.conversationID else { return }
+            delegate?.didUpdateConversation(with: conversationID, isOnline: conversation.isOnline)
         }
     }
 }

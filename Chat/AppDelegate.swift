@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UINavigationBar.appearance().barTintColor = color
         }
 
-        self.window = UIWindow(frame: UIScreen.main.bounds)
+        self.window = EmitterWindow(frame: UIScreen.main.bounds)
 
         if let conversationListVC = rootAssembley.presentationAssembly.conversationsListVC() {
             let navigationController = UINavigationController(rootViewController: conversationListVC)
